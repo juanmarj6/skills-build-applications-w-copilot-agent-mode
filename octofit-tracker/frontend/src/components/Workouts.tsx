@@ -1,4 +1,6 @@
 import { useState, type FormEvent } from 'react';
+import { getJson } from '../api/client.js';
+import { useApiList } from '../api/useApiList.js';
 import { CapabilityCard } from './CapabilityCard.js';
 
 type Workout = { title: string; focus?: string; minutes?: number; difficulty?: string; reason?: string };
@@ -8,6 +10,8 @@ const defaultUserEmail = 'mona@example.com';
 export default function Workouts() {
   const [email, setEmail] = useState(defaultUserEmail);
   const [requestedEmail, setRequestedEmail] = useState(defaultUserEmail);
+  const endpoint = `/api/workouts/suggestions/${encodeURIComponent(requestedEmail)}`;
+  const { items, hasError } = useApiList<Workout>(endpoint, 'suggestions', getJson);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -33,8 +37,8 @@ export default function Workouts() {
       <CapabilityCard<Workout>
         title="Workout suggestions"
         description="Recommend workouts from activity patterns."
-        endpoint={`/api/workouts/suggestions/${encodeURIComponent(requestedEmail)}`}
-        responseKey="suggestions"
+        items={items}
+        hasError={hasError}
         emptyText="No workout suggestions yet."
         renderItem={(workout, index) => (
           <li key={`${workout.title}-${index}`} className="list-group-item">
