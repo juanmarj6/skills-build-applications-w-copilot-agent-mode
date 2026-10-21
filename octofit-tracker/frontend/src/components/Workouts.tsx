@@ -11,7 +11,7 @@ export default function Workouts() {
   const [email, setEmail] = useState(defaultUserEmail);
   const [requestedEmail, setRequestedEmail] = useState(defaultUserEmail);
   const endpoint = `/api/workouts/suggestions/${encodeURIComponent(requestedEmail)}`;
-  const { items, hasError } = useApiList<Workout>(endpoint, 'suggestions', getJson);
+  const { items, hasError } = useApiList<Workout>(endpoint, 'suggestions', getJson<Record<string, unknown>>);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

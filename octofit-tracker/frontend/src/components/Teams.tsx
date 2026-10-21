@@ -5,7 +5,7 @@ import { CapabilityCard } from './CapabilityCard.js';
 type Team = { name: string; mascot?: string; members?: string[] };
 
 export default function Teams() {
-  const { items, hasError } = useApiList<Team>('/api/teams', 'teams', getJson);
+  const { items, hasError } = useApiList<Team>('/api/teams', 'teams', getJson<Record<string, unknown>>);
 
   return (
     <CapabilityCard<Team>

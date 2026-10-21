@@ -5,7 +5,7 @@ import { CapabilityCard } from './CapabilityCard.js';
 type Entry = { teamName: string; totalPoints: number; rank: number };
 
 export default function Leaderboard() {
-  const { items, hasError } = useApiList<Entry>('/api/leaderboard', 'leaderboard', getJson);
+  const { items, hasError } = useApiList<Entry>('/api/leaderboard', 'leaderboard', getJson<Record<string, unknown>>);
 
   return (
     <CapabilityCard<Entry>

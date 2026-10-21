@@ -5,7 +5,7 @@ import { CapabilityCard } from './CapabilityCard.js';
 type Activity = { type: string; minutes: number; points: number };
 
 export default function Activities() {
-  const { items, hasError } = useApiList<Activity>('/api/activities', 'activities', getJson);
+  const { items, hasError } = useApiList<Activity>('/api/activities', 'activities', getJson<Record<string, unknown>>);
 
   return (
     <CapabilityCard<Activity>
